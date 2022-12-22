@@ -1,0 +1,68 @@
+name: "Release GitHub Action"
+description: "Release an GitHub Action using semantic-release"
+branding:
+  icon: upload-cloud
+  color: blue
+
+inputs:
+  version:
+    description: "Semantic version used for tagging (with leading v). Example: v1.2.3"
+    required: true
+  github-token:
+    description: "GitHub token"
+    required: false
+    default: ${{ github.token }}
+  registry:
+    description: "Container registry"
+    required: false
+    default: ghcr.io
+  registry-username:
+    description: "Container registry username"
+    required: false
+    default: ${{ github.actor }}
+  registry-password:
+    description: "Container registry password"
+    required: false
+    default: ${{ github.token }}
+  image-name:
+    description: "Image name"
+    required: false
+    default: ${{ github.repository }}
+  build-context:
+    description: "Build context"
+    required: false
+    default: "."
+  push-image:
+    description: "Push image to registry"
+    required: false
+    default: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Log in to the Container registry
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.registry-username }}
+        password: ${{ inputs.registry-password }}
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: ${{ inputs.registry }}/${{ inputs.image-name }}
+        github-token: ${{ inputs.github-token }}
+        flavor: |
+          latest=false
+        tags: |
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=semver,pattern={{version}},value=${{ inputs.version }}
+          type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }}
+          type=semver,pattern={{major}},value=${{ inputs.version }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3
+      with:
+        context: ${{ inputs.build-context }}
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
