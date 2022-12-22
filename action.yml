@@ -7,7 +7,7 @@ branding:
 inputs:
   version:
     description: "Semantic version used for tagging (with leading v). Example: v1.2.3"
-    required: true
+    required: false
   github-token:
     description: "GitHub token"
     required: false
@@ -35,7 +35,7 @@ inputs:
   push-image:
     description: "Push image to registry"
     required: false
-    default: true
+    default: "true"
 
 runs:
   using: "composite"
@@ -56,13 +56,14 @@ runs:
           latest=false
         tags: |
           type=raw,value=latest,enable={{is_default_branch}}
-          type=semver,pattern={{version}},value=${{ inputs.version }}
-          type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }}
-          type=semver,pattern={{major}},value=${{ inputs.version }}
+          type=raw,value=${{ github.ref_name }},enable=${{ github.ref_type == 'branch' }}
+          type=semver,pattern={{version}},value=${{ inputs.version }},enable=${{ inputs.version != '' }}
+          type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }},enable=${{ inputs.version != '' }}
+          type=semver,pattern={{major}},value=${{ inputs.version }},enable=${{ inputs.version != '' }}
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
         context: ${{ inputs.build-context }}
-        push: true
+        push: ${{ inputs.push-image == 'true' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
