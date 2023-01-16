@@ -36,6 +36,14 @@ inputs:
     description: "Push image to registry"
     required: false
     default: "true"
+  tag-suffix:
+    description: "Suffix to add to the image tag"
+    required: false
+    default: ""
+  tag-prefix:
+    description: "Prefix to add to the image tag"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -55,11 +63,11 @@ runs:
         flavor: |
           latest=false
         tags: |
-          type=raw,value=latest,enable={{is_default_branch}}
-          type=raw,value=${{ github.ref_name }},enable=${{ github.ref_type == 'branch' }}
-          type=semver,pattern={{version}},value=${{ inputs.version }},enable=${{ inputs.version != '' }}
-          type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }},enable=${{ inputs.version != '' }}
-          type=semver,pattern={{major}},value=${{ inputs.version }},enable=${{ inputs.version != '' }}
+          type=raw,value=latest,enable={{is_default_branch}},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
+          type=raw,value=${{ github.ref_name }},enable=${{ github.ref_type == 'branch' }},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
+          type=semver,pattern={{version}},value=${{ inputs.version }},enable=${{ inputs.version != '' }},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
+          type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }},enable=${{ inputs.version != '' }},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
+          type=semver,pattern={{major}},value=${{ inputs.version }},enable=${{ inputs.version != '' }},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
