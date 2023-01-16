@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/cihelper/action-docker-publish/compare/v1.2.0...v1.3.0) (2023-01-16)
+
+
+### Features
+
+* add dockerfile input ([a8113bc](https://github.com/cihelper/action-docker-publish/commit/a8113bcf4a7dacf2aa0c05aadf1fc15aec0a8981))
+
 ## [1.2.0](https://github.com/cihelper/action-docker-publish/compare/v1.1.0...v1.2.0) (2023-01-16)
 
 
