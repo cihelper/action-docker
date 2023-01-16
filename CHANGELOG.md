@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/cihelper/action-docker-publish/compare/v1.1.0...v1.2.0) (2023-01-16)
+
+
+### Features
+
+* allow to set image tag prefix & suffix ([35e7075](https://github.com/cihelper/action-docker-publish/commit/35e7075aea9acf0db36b3a8d88d2ca99e2ff6f16))
+
 ## [1.1.0](https://github.com/cihelper/action-docker-publish/compare/v1.0.0...v1.1.0) (2022-12-22)
 
 
