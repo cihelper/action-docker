@@ -32,6 +32,10 @@ inputs:
     description: "Build context"
     required: false
     default: "."
+  dockerfile:
+    description: "Dockerfile"
+    required: false
+    default: "Dockerfile"
   push-image:
     description: "Push image to registry"
     required: false
@@ -72,6 +76,7 @@ runs:
       uses: docker/build-push-action@v3
       with:
         context: ${{ inputs.build-context }}
+        file: ${{ inputs.build-context }}/${{ inputs.dockerfile }}
         push: ${{ inputs.push-image == 'true' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
