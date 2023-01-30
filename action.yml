@@ -73,7 +73,7 @@ runs:
           type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }},enable=${{ inputs.version != '' }},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
           type=semver,pattern={{major}},value=${{ inputs.version }},enable=${{ inputs.version != '' }},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
     - name: Build and push Docker image
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.build-context }}
         file: ${{ inputs.build-context }}/${{ inputs.dockerfile }}
