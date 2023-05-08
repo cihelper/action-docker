@@ -40,6 +40,10 @@ inputs:
     description: "Push image to registry"
     required: false
     default: "true"
+  build-image:
+    description: "Build image"
+    required: false
+    default: "true"
   tag-suffix:
     description: "Suffix to add to the image tag"
     required: false
@@ -73,6 +77,7 @@ runs:
           type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }},enable=${{ inputs.version != '' }},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
           type=semver,pattern={{major}},value=${{ inputs.version }},enable=${{ inputs.version != '' }},suffix=${{ inputs.tag-suffix }},prefix=${{ inputs.tag-prefix }}
     - name: Build and push Docker image
+      if: ${{ inputs.build-image == 'true' }}
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.build-context }}
