@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/cihelper/action-docker-publish/compare/v1.3.0...v1.4.0) (2023-05-08)
+
+
+### Features
+
+* allow disabling to build the image ([d35f91b](https://github.com/cihelper/action-docker-publish/commit/d35f91b851a929af23b9ac02a05768659e1612d3))
+
 ## [1.3.0](https://github.com/cihelper/action-docker-publish/compare/v1.2.0...v1.3.0) (2023-01-16)
 
 
