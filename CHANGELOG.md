@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/cihelper/action-docker-publish/compare/v1.4.0...v1.5.0) (2023-06-11)
+
+
+### Features
+
+* add support for qemu platforms ([96e3733](https://github.com/cihelper/action-docker-publish/commit/96e373345b7cc585949e5ab9332f357fd63bd83b))
+
 ## [1.4.0](https://github.com/cihelper/action-docker-publish/compare/v1.3.0...v1.4.0) (2023-05-08)
 
 
