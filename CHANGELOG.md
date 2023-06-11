@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/cihelper/action-docker-publish/compare/v1.5.0...v1.5.1) (2023-06-11)
+
+
+### Bug Fixes
+
+* pass platforms to qemu setup action ([de672c1](https://github.com/cihelper/action-docker-publish/commit/de672c13a450ba8f818bd18bed67831b654b48f3))
+
 ## [1.5.0](https://github.com/cihelper/action-docker-publish/compare/v1.4.0...v1.5.0) (2023-06-11)
 
 
