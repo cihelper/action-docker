@@ -57,7 +57,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: docker/setup-qemu-action@v2
+    - uses: docker/setup-qemu-action@v3
       if: ${{ inputs.platforms }}
       with:
         platforms: ${{ inputs.platforms }}
